@@ -2,7 +2,8 @@ from django.db import models
 from django.urls import reverse 
 from .utils import uniqueSlugGenerator
 from django.db.models.signals import pre_save,post_save
-# Create your models here.
+from .managers import CategoryManager
+
 
 
 
@@ -36,7 +37,7 @@ class Category(models.Model):
     name  = models.CharField(db_index=True,max_length=100)
     slug = models.SlugField(blank=True)
     parent_category = models.ForeignKey('self',null=True,blank=True ,related_name='child_categories', on_delete=models.CASCADE)
-
+    objects = CategoryManager()
 
     class Meta:
         ordering=('name',)
@@ -56,3 +57,11 @@ def save_slug(sender,**kwargs):
         kwargs['instance'].save()
 post_save.connect(save_slug,sender=Product)
 post_save.connect(save_slug,sender=Category)
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+    product = models.ManyToManyField(Product,related_name='tags')
+
+    def __str__(self):
+        return self.name

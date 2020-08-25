@@ -129,12 +129,58 @@
       <!--Grid row-->
 
       <hr>
+         
+          <h2>Recommended Similar Products</h2>
+                     <section class="text-center mb-4">
+                
+                        <!--Grid row-->
+                        <div class="row wow fadeIn">
+                
+                          <!--Grid column-->
+                          {%for product in similar_products%}
+                          <div class="col-lg-3  mb-4 wanted-div">
+                
+                            <!--Card-->
+                            <div class="card wanted-card">
+                
+                              <!--Card image-->
+                              <div class="view overlay">
+                                <img width="300" height="300" src="{{product.image.url}}" class="card-img-top" alt="">
+                                <a>
+                                  <div class="mask rgba-white-slight"></div>
+                                </a>
+                              </div>
+                              <!--Card image-->
+                
+                              <!--Card content-->
+                              <div class="card-body text-center">
+                                <!--Category & Title-->
+                                <a href="{%url 'home:product_detail' product.slug%}" class="grey-text">
+                                  <h5 id='cat-title'>{{product.title}}</h5>
+                                </a>
+                                <h5>
+                                  <strong>
+                                    <p class="dark-grey-text">{{product.category}}</p>
+                                  </strong>
+                                </h5>
+                
+                                <h4 class="font-weight-bold blue-text">
+                                  <strong>{{product.price}}</strong>
+                                </h4>
+                
+                              </div>
+                              <!--Card content-->
+                
+                            </div>
+                
+                          </div>
+                          {%endfor%}
+         
+                
+                        </div>
 
-      <!--Grid row-->
-    
-      <!--Grid row-->
-
-      <!--Grid row-->
+                
+                      </section>
  
 
     </div>

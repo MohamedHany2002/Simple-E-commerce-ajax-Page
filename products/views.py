@@ -5,14 +5,13 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.core import serializers
-
+from django.db.models import Q
+from django.db.models import Count
 
 
 def home(request,category_slug=None):
     products = Product.objects.all()
-    # using select related to get Product and Category objects in one query (ORM optimization)
-    parent_categories_ids = Category.objects.exclude(parent_category__isnull=True).select_related('parent_category').values_list('parent_category',flat=True)
-    parent_categories = Category.objects.filter(id__in=parent_categories_ids)
+    parent_categories = Category.objects.get_parent_categories()
     sub_categories=None
     if category_slug :
         category = get_object_or_404(Category,slug=category_slug)
@@ -38,5 +37,19 @@ def ajax_category_view(request):
 
 def product_detail(request,slug):
     product = get_object_or_404(Product,slug=slug)
-    return render(request,'product_detail.html',{'product':product})
+    # recommeding similar products
+    tags = product.tags.all()
+    products = Product.objects.filter(tags__in=tags)
+    similar_products = products.annotate(count=Count('tags')).order_by('-count').exclude(slug=slug)
+    return render(request,'product_detail.html',{'product':product,'similar_products':similar_products})
     
+
+
+def search(request):
+    query = request.GET.get('q')
+    products=Product.objects.filter(Q(title__icontains=query)|Q(description__icontains=query)|Q(tags__name__icontains=query))
+    parent_categories = Category.objects.get_parent_categories()
+    return render(request,'home.html',{'products':products,'parent_categories':parent_categories})
+
+
+
