@@ -129,7 +129,7 @@
       <!--Grid row-->
 
       <hr>
-         
+         {%if similar_products%}
           <h2>Recommended Similar Products</h2>
                      <section class="text-center mb-4">
                 
@@ -185,6 +185,9 @@
 
     </div>
   </main>
+  {%else%}
+  <h2>No Similar Products to view </h2>
+  {%endif%}
   
 </body>
 </html>
