@@ -52,7 +52,6 @@ class Category(models.Model):
 
 def save_slug(sender,**kwargs):
     if not kwargs['instance'].slug:
-        print('ehy')
         kwargs['instance'].slug=uniqueSlugGenerator(kwargs['instance'])
         kwargs['instance'].save()
 post_save.connect(save_slug,sender=Product)
