@@ -126,7 +126,7 @@ xhr.setRequestHeader("X-CSRFToken", csrftoken);
                         }
                 })
                 console.log(cat,'cat')
-                    $('.fadeIn').append("<div class='col-lg-3  mb-4 wanted-div'><div class='card wanted-card'><div class='view overlay'><img height='300' width='220' src='http://127.0.0.1:8000/media/"+val.fields.image+"'><a><div class='mask rgba-white-slight'></div> </a></div><div class='card-body text-center'><a href='http://127.0.0.1:8000/product/"+val.fields.slug+"/' class='grey-text'><h5 id='cat-title'>'"+val.fields.title+"'</h5></a><h5><strong><a href='' class='dark-grey-text'>"+cat+"</a></strong></h5><h4 class='font-weight-bold blue-text'><strong>"+val.fields.price+"</strong></h4></div></div></div>");
+                    $('.fadeIn').append("<div class='col-lg-3  mb-4 wanted-div'><div class='card wanted-card'><div class='view overlay'><img height='300' width='220' src='http://127.0.0.1:8000/media/"+val.fields.image+"'><a><div class='mask rgba-white-slight'></div> </a></div><div class='card-body text-center'><a href='http://127.0.0.1:8000/product/"+val.fields.slug+"/' class='grey-text'><h5 id='cat-title'>"+val.fields.title+"</h5></a><h5><strong><a href='' class='dark-grey-text'>"+cat+"</a></strong></h5><h4 class='font-weight-bold blue-text'><strong>"+val.fields.price+"</strong></h4></div></div></div>");
                     console.log('http://127.0.0.1:8000/src/media/'+val.fields.image,'lol')
                     console.log('http://127.0.0.1:8000/media/images/india-gate-basmati-rice-premium-500x500.jpg')
                     })
