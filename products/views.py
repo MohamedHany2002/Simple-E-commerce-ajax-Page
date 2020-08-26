@@ -11,13 +11,12 @@ from django.db.models import Count
 
 def home(request,category_slug=None):
     products = Product.objects.all()
-    parent_categories = Category.objects.get_parent_categories()
     sub_categories=None
     if category_slug :
         category = get_object_or_404(Category,slug=category_slug)
         sub_categories = category.child_categories.all()
         products = products.filter(category__in=sub_categories)
-    return render(request,"home.html",{'parent_categories':parent_categories,'products':products,'sub_categories':sub_categories})
+    return render(request,"home.html",{'products':products,'sub_categories':sub_categories})
 
 @ajax_required
 @require_POST
@@ -48,8 +47,7 @@ def product_detail(request,slug):
 def search(request):
     query = request.GET.get('q')
     products=Product.objects.filter(Q(title__icontains=query)|Q(description__icontains=query)|Q(tags__name__icontains=query))
-    parent_categories = Category.objects.get_parent_categories()
-    return render(request,'home.html',{'products':products,'parent_categories':parent_categories})
+    return render(request,'home.html',{'products':products})
 
 
 

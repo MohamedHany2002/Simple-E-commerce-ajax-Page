@@ -1,0 +1,9 @@
+
+          <div class="list-group">
+            {%for category in parent_categories%}
+            <a href="{%url 'home:home_category' category.slug%}" class="list-group-item">
+              <h4><i aria-hidden="true"></i> {{category}}</h4>
+            </a>
+            {%endfor%}
+
+          </div>
